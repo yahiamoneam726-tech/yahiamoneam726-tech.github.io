@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Yahia Qandil — AI & Data Science</title>
+<meta name="description" content="Yahia Qandil — AI & Data Science student. Building ML models, LLM-powered apps, and end-to-end MLOps pipelines." />
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='54%25' font-family='Helvetica,Arial,sans-serif' font-size='30' font-weight='800' fill='%23ff5722' text-anchor='middle' dominant-baseline='middle' letter-spacing='-1'%3EYQ%3C/text%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='54%25' font-family='Helvetica,Arial,sans-serif' font-size='30' font-weight='800' fill='%23ff5722' text-anchor='middle' dominant-baseline='middle' letter-spacing='-1'%3EYQ%3C/text%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0a0a0a;
+  --bg-2:#111111;
+  --ink:#f4f1ea;
+  --ink-dim:#a0a0a0;
+  --ink-faint:#5a5a5a;
+  --accent:#ff5722;
+  --accent-2:#ffd166;
+  --line:#1f1f1f;
+  --maxw: 1280px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{cursor:none}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--accent);color:#fff}
+
+/* Custom cursor */
+.cursor{position:fixed;left:0;top:0;width:14px;height:14px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9999;mix-blend-mode:difference;transition:transform .18s ease, opacity .2s}
+.cursor-trail{position:fixed;left:0;top:0;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.35);pointer-events:none;z-index:9998;transition:transform .35s ease}
+@media (max-width: 800px){.cursor,.cursor-trail{display:none} body{cursor:auto}}
+
+/* Loading */
+.loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity .6s ease, visibility .6s}
+.loader.gone{opacity:0;visibility:hidden}
+.loader-num{font-family:'Bebas Neue';font-size:clamp(80px,18vw,260px);letter-spacing:.04em;color:var(--ink);line-height:.8}
+.loader-bar{position:absolute;left:0;bottom:0;height:2px;background:var(--accent);width:0%}
+
+/* Navbar */
+.nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,4vw,60px);transition:background .3s, backdrop-filter .3s}
+.nav.scrolled{background:rgba(10,10,10,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{font-family:'Bebas Neue';letter-spacing:.18em;font-size:22px}
+.brand span{color:var(--accent)}
+.nav-links{display:flex;gap:34px;font-size:13px;text-transform:uppercase;letter-spacing:.18em}
+.nav-links a{position:relative;color:var(--ink-dim);transition:color .3s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;background:var(--accent);transition:width .35s ease}
+.nav-links a:hover::after{width:100%}
+.nav-cta{font-size:12px;letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--ink);padding:10px 18px;border-radius:999px;transition:.3s}
+.nav-cta:hover{background:var(--ink);color:var(--bg)}
+.menu-btn{display:none;background:none;border:none;color:var(--ink);font-size:22px;cursor:pointer}
+@media (max-width: 800px){
+  .nav-links{display:none;position:absolute;inset:60px 0 auto 0;flex-direction:column;background:var(--bg-2);padding:30px;gap:20px;border-bottom:1px solid var(--line)}
+  .nav-links.open{display:flex}
+  .nav-cta{display:none}
+  .menu-btn{display:block}
+}
+
+/* Layout */
+section{padding:clamp(80px,10vw,160px) clamp(20px,4vw,60px);position:relative;max-width:var(--maxw);margin:0 auto}
+.section-label{font-family:'JetBrains Mono';font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:14px}
+.section-label::before{content:"";width:32px;height:1px;background:var(--accent)}
+
+/* Landing */
+.landing{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:140px;position:relative}
+.landing .hello{font-size:18px;color:var(--ink-dim);letter-spacing:.18em;text-transform:uppercase;margin-bottom:22px;font-weight:300}
+.landing h1{font-family:'Bebas Neue';font-size:clamp(64px,16vw,260px);line-height:.85;letter-spacing:.01em}
+.landing h1 .sub{display:block;color:var(--accent);font-style:italic;font-family:'Bebas Neue';-webkit-text-stroke:1px var(--accent);color:transparent}
+.landing-info{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:40px;flex-wrap:wrap}
+.landing-role{font-family:'JetBrains Mono';font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);max-width:380px;line-height:1.7}
+.landing-role span{color:var(--accent)}
+.landing-scroll{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-faint);writing-mode:vertical-rl;transform:rotate(180deg);position:absolute;right:30px;bottom:40px;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:rotate(180deg) translateY(0)}50%{transform:rotate(180deg) translateY(-10px)}}
+@media (max-width: 800px){.landing-scroll{display:none}}
+
+/* Floating tags */
+.float-tags{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.float-tag{position:absolute;font-family:'JetBrains Mono';font-size:11px;color:var(--ink-faint);letter-spacing:.2em;border:1px solid var(--line);padding:6px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+.landing > *{position:relative;z-index:1}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:center}
+@media (max-width: 900px){.about-grid{grid-template-columns:1fr;gap:40px}}
+.about-grid h2{font-family:'Bebas Neue';font-size:clamp(40px,6vw,86px);line-height:.95;letter-spacing:.01em;margin-bottom:30px}
+.about-grid p{color:var(--ink-dim);line-height:1.85;font-size:16px;font-weight:300;margin-bottom:18px;max-width:60ch}
+.about-grid p strong{color:var(--ink);font-weight:500}
+.about-card{border:1px solid var(--line);border-radius:18px;padding:36px;background:linear-gradient(180deg,#131313 0%,#0c0c0c 100%);position:relative;overflow:hidden}
+.about-card::before{content:"";position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(255,87,34,.18),transparent 60%);pointer-events:none}
+.about-card h3{font-family:'JetBrains Mono';font-size:12px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:24px}
+.about-stat{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px}
+.about-stat:last-child{border:none}
+.about-stat span:first-child{color:var(--ink-dim)}
+.about-stat span:last-child{color:var(--ink);font-family:'JetBrains Mono'}
+
+/* Skills */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.skill-card{border:1px solid var(--line);border-radius:16px;padding:30px;background:var(--bg-2);transition:.4s ease;cursor:pointer;position:relative;overflow:hidden}
+.skill-card::after{content:"";position:absolute;left:-50%;top:0;bottom:0;width:50%;background:linear-gradient(90deg,transparent,rgba(255,87,34,.06),transparent);transition:.6s}
+.skill-card:hover{transform:translateY(-6px);border-color:var(--accent)}
+.skill-card:hover::after{left:120%}
+.skill-card h4{font-size:18px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.skill-card h4::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.skill-card p{color:var(--ink-dim);font-size:14px;line-height:1.7;font-weight:300}
+
+/* Tech marquee */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;margin-top:60px}
+.marquee{display:flex;gap:60px;animation:scroll 40s linear infinite;white-space:nowrap;width:max-content}
+.marquee span{font-family:'Bebas Neue';font-size:46px;letter-spacing:.05em;color:var(--ink-faint);transition:.3s}
+.marquee span:hover{color:var(--accent)}
+.marquee span::after{content:"●";margin-left:60px;color:var(--accent);font-size:18px;vertical-align:middle}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Career timeline */
+.timeline{position:relative;padding-left:30px;margin-top:30px}
+.timeline::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--accent),var(--line))}
+.t-item{position:relative;padding:0 0 50px 36px}
+.t-item::before{content:"";position:absolute;left:-30px;top:6px;width:17px;height:17px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);box-shadow:0 0 0 4px rgba(255,87,34,.15)}
+.t-item:last-child{padding-bottom:0}
+.t-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.t-head h4{font-size:20px;font-weight:600}
+.t-head .t-date{font-family:'JetBrains Mono';font-size:13px;color:var(--accent);letter-spacing:.1em}
+.t-role{font-family:'JetBrains Mono';font-size:13px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px}
+.t-item ul{list-style:none;padding:0}
+.t-item ul li{position:relative;padding-left:18px;color:var(--ink-dim);line-height:1.75;font-size:14.5px;font-weight:300;margin-bottom:6px}
+.t-item ul li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+.t-item p{color:var(--ink-dim);line-height:1.75;font-size:14.5px;font-weight:300}
+
+/* Projects */
+.projects{display:grid;gap:30px}
+.proj{display:grid;grid-template-columns:1fr 1.4fr;gap:50px;align-items:center;border-top:1px solid var(--line);padding-top:50px}
+.proj:last-child{border-bottom:1px solid var(--line);padding-bottom:50px}
+@media (max-width: 900px){.proj{grid-template-columns:1fr;gap:24px}}
+.proj-visual{aspect-ratio:4/3;border-radius:16px;background:linear-gradient(135deg,#1a1a1a,#0a0a0a);border:1px solid var(--line);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.proj-visual .num{font-family:'Bebas Neue';font-size:clamp(80px,12vw,180px);color:transparent;-webkit-text-stroke:2px var(--accent);opacity:.7;letter-spacing:.02em}
+.proj-visual::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,87,34,.12),transparent 50%),radial-gradient(circle at 70% 80%,rgba(255,209,102,.08),transparent 50%)}
+.proj-visual::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:30px 30px}
+.proj h3{font-family:'Bebas Neue';font-size:clamp(36px,5vw,60px);line-height:.95;margin-bottom:14px;letter-spacing:.01em}
+.proj .stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.proj .stack span{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.1em;border:1px solid var(--line);padding:6px 12px;border-radius:999px;color:var(--ink-dim)}
+.proj p{color:var(--ink-dim);line-height:1.85;font-size:15px;font-weight:300;max-width:60ch}
+
+/* Contact */
+.contact{text-align:center;padding-bottom:80px}
+.contact h2{font-family:'Bebas Neue';font-size:clamp(56px,11vw,180px);line-height:.95;letter-spacing:.01em;margin-bottom:30px}
+.contact h2 a{position:relative;display:inline-block;background:linear-gradient(90deg,var(--ink),var(--accent),var(--ink));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite}
+@keyframes shimmer{to{background-position:-200% 0}}
+.contact p{color:var(--ink-dim);max-width:520px;margin:0 auto 40px;line-height:1.85}
+.contact-info{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;font-family:'JetBrains Mono';font-size:13px;color:var(--ink-dim);letter-spacing:.05em}
+.contact-info a{display:flex;align-items:center;gap:8px;transition:color .3s}
+.contact-info a:hover{color:var(--accent)}
+.contact-info svg{width:16px;height:16px}
+
+/* Socials */
+.socials{position:fixed;left:24px;bottom:24px;display:flex;flex-direction:column;gap:14px;z-index:50}
+.socials a{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink-dim);transition:.3s;background:var(--bg-2)}
+.socials a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-3px)}
+.socials svg{width:16px;height:16px}
+@media (max-width: 800px){.socials{left:12px;bottom:12px}.socials a{width:34px;height:34px}}
+
+/* Footer */
+footer{border-top:1px solid var(--line);padding:30px clamp(20px,4vw,60px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* Aurora bg */
+.aurora{position:fixed;inset:-20%;z-index:-1;pointer-events:none;filter:blur(120px);opacity:.35}
+.aurora::before,.aurora::after{content:"";position:absolute;width:600px;height:600px;border-radius:50%}
+.aurora::before{background:radial-gradient(circle,#ff5722,transparent 60%);top:10%;left:-10%;animation:drift 22s ease-in-out infinite alternate}
+.aurora::after{background:radial-gradient(circle,#ffd166,transparent 60%);bottom:0;right:-10%;animation:drift 28s ease-in-out infinite alternate-reverse}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(80px,-60px) scale(1.2)}}
+</style>
+</head>
+<body>
+
+<div class="aurora"></div>
+
+<!-- Loader -->
+<div class="loader" id="loader">
+  <div class="loader-num" id="loaderNum">00</div>
+  <div class="loader-bar" id="loaderBar"></div>
+</div>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <a href="#top" class="brand">YQ<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#career">Career</a>
+    <a href="#work">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Let's talk</a>
+  <button class="menu-btn" id="menuBtn" aria-label="menu">≡</button>
+</nav>
+
+<!-- Socials -->
+<div class="socials">
+  <a href="https://github.com/yahiamoneam726-tech" target="_blank" rel="noopener" aria-label="GitHub">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2.1c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.5-.3-5.2-1.3-5.2-5.6 0-1.2.4-2.2 1.2-3-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.7.2 2.9.1 3.2.7.8 1.2 1.8 1.2 3 0 4.3-2.6 5.3-5.2 5.6.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.6 18.4.5 12 .5z"/></svg>
+  </a>
+  <a href="https://linkedin.com/in/yahia-qandil-291549206" target="_blank" rel="noopener" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.3a1.7 1.7 0 110-3.5 1.7 1.7 0 010 3.5zM19 19h-3v-4.7c0-1.1 0-2.6-1.6-2.6S12.5 13 12.5 14.2V19h-3v-9h2.9v1.2h.04A3.2 3.2 0 0115.4 9.7c3.1 0 3.6 2 3.6 4.6z"/></svg>
+  </a>
+  <a href="mailto:yahia.qandil183@outlook.com" aria-label="Email">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+  </a>
+</div>
+
+<!-- Landing -->
+<section class="landing" id="top">
+  <div class="float-tags" id="floatTags"></div>
+  <p class="hello reveal">Hello, I'm</p>
+  <h1 class="reveal">YAHIA<br><span class="sub">QANDIL</span></h1>
+  <div class="landing-info">
+    <div class="landing-role reveal">
+      AI &amp; <span>Data Science</span><br>
+      building <span>ML systems</span>, <span>LLM-powered apps</span>,<br>
+      and <span>end-to-end MLOps</span> pipelines.
+    </div>
+  </div>
+  <div class="landing-scroll">SCROLL ↓</div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-label reveal">01 — About</div>
+  <div class="about-grid">
+    <div class="reveal">
+      <h2>From notebooks to <em style="color:var(--accent);font-style:italic">production.</em></h2>
+      <p>I'm a final-year <strong>AI &amp; Data Science</strong> student at ESLSCA University (graduating June 2026), but most of what I'm proud of was learned outside the classroom — by shipping things.</p>
+      <p>My focus sits at the seam where <strong>research-grade ML</strong> meets real, deployable systems: training and tuning models is only half the job; the other half is the wiring around them — data versioning, experiment tracking, feature pipelines, model registries, drift monitoring, CI quality gates, and the boring-but-critical infrastructure that lets a model survive contact with production.</p>
+      <p>Lately I've been going deeper on <strong>agentic AI</strong> — building <strong>RAG pipelines</strong>, retrieval-augmented codebase chatbots, and multi-step workflows with LangChain / LangGraph — and on <strong>reinforcement learning</strong>, where I designed a contextual RL agent for live equity trading. I care about clean abstractions, reproducibility, and writing code my future self won't be ashamed of.</p>
+      <p>Currently looking for an <strong>AI / ML / MLOps</strong> role where I can keep learning fast, work alongside engineers who are sharper than me, and contribute to systems that ship.</p>
+    </div>
+    <div class="about-card reveal">
+      <h3>// At a glance</h3>
+      <div class="about-stat"><span>Location</span><span>Heliopolis, Cairo</span></div>
+      <div class="about-stat"><span>University</span><span>ESLSCA</span></div>
+      <div class="about-stat"><span>Major</span><span>AI &amp; Data Science</span></div>
+      <div class="about-stat"><span>Graduation</span><span>Jun 2026</span></div>
+      <div class="about-stat"><span>Languages</span><span>EN · AR</span></div>
+      <div class="about-stat"><span>Status</span><span style="color:var(--accent)">● Open to roles</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="section-label reveal">02 — What I do</div>
+  <h2 class="reveal" style="font-family:'Bebas Neue';font-size:clamp(40px,6vw,86px);line-height:.95;margin-bottom:40px">Tools &amp; <span style="color:var(--accent)">technologies</span></h2>
+
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <h4>Python</h4>
+      <p>Primary language for ML, data analysis, and backend services. Comfortable across the scientific stack — NumPy, Pandas, Polars — and idiomatic in async, typing, and packaging conventions.</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>LLMs &amp; Agentic AI</h4>
+      <p>LangChain, LangGraph, LangSmith, Google Gemini API, FAISS vector search, prompt engineering, RAG pipelines, structure-aware chunking, and n8n workflow automation for agent-to-tool integration.</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>Reinforcement Learning</h4>
+      <p>Designed a contextual RL agent for live position sizing in the Agentic Trading Bot, with reward shaping on net PnL and safety constraints. Familiar with policy-gradient and value-based methods.</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>Machine Learning</h4>
+      <p>Built supervised models with scikit-learn and XGBoost; applied feature engineering, cross-validation, hyperparameter tuning, calibration, and rigorous offline evaluation before promoting anything to production.</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>Deep Learning &amp; NLP</h4>
+      <p>PyTorch, TensorFlow, and Hugging Face Transformers. Evaluated NLP models using BLEU, ROUGE, BERTScore, and perplexity. Comfortable with embeddings, fine-tuning, and tokenizer internals.</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>MLOps</h4>
+      <p>DVC for data versioning, MLflow for experiment tracking and model registry, FastAPI for model serving, Docker &amp; Docker Compose for packaging, and GitHub Actions for CI/CD with quality gates.</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>Data &amp; SQL</h4>
+      <p>Strong on Pandas / Polars for transformation and Pandera for schema enforcement. Comfortable in PostgreSQL (Supabase) and the SAP BO Universe semantic layer for governed business data modeling.</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>BI &amp; Visualization</h4>
+      <p>Power BI for stakeholder-facing interactive dashboards, SAP Web Intelligence for governed reporting, and Matplotlib / Plotly for analysis-time charts that help me actually understand a dataset.</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>Backend &amp; Cloud</h4>
+      <p>FastAPI for typed Python APIs, Next.js for dashboards, and end-to-end deployment across Render, Vercel, and Supabase Postgres — including third-party API integration (Alpaca Markets, Gemini).</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>Monitoring &amp; Quality</h4>
+      <p>Evidently for data &amp; model drift, Prometheus for service metrics, Pandera for schema validation, pytest for coverage gates, and flake8 for style — drift and breakage caught at the CI layer, not in production.</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>Tooling &amp; Collaboration</h4>
+      <p>Git-flow, pull-request review, conventional commits, and team-friendly debugging. Linux-first dev workflow. Comfortable explaining technical work to non-technical stakeholders — picked up at Intercom &amp; Raya.</p>
+    </div>
+    <div class="skill-card reveal">
+      <h4>Soft Skills</h4>
+      <p>Curious by default, low-ego when collaborating, and used to shipping under deadline. Have delivered internal technical sessions on LangChain &amp; presentation skills — comfortable at the whiteboard, not just behind one.</p>
+    </div>
+  </div>
+
+  <div class="marquee-wrap reveal">
+    <div class="marquee">
+      <span>Python</span><span>PyTorch</span><span>TensorFlow</span><span>Hugging Face</span><span>LangChain</span><span>LangGraph</span><span>LangSmith</span><span>FAISS</span><span>Gemini</span><span>scikit-learn</span><span>XGBoost</span><span>Pandas</span><span>Polars</span><span>FastAPI</span><span>Docker</span><span>MLflow</span><span>DVC</span><span>Evidently</span><span>Prometheus</span><span>GitHub Actions</span><span>Next.js</span><span>Supabase</span><span>PostgreSQL</span><span>Power BI</span><span>n8n</span>
+      <span>Python</span><span>PyTorch</span><span>TensorFlow</span><span>Hugging Face</span><span>LangChain</span><span>LangGraph</span><span>LangSmith</span><span>FAISS</span><span>Gemini</span><span>scikit-learn</span><span>XGBoost</span><span>Pandas</span><span>Polars</span><span>FastAPI</span><span>Docker</span><span>MLflow</span><span>DVC</span><span>Evidently</span><span>Prometheus</span><span>GitHub Actions</span><span>Next.js</span><span>Supabase</span><span>PostgreSQL</span><span>Power BI</span><span>n8n</span>
+    </div>
+  </div>
+</section>
+
+<!-- Career -->
+<section id="career">
+  <div class="section-label reveal">03 — Career</div>
+  <h2 class="reveal" style="font-family:'Bebas Neue';font-size:clamp(40px,6vw,86px);line-height:.95;margin-bottom:40px">My career <span style="color:var(--accent)">&amp;</span><br>experience</h2>
+
+  <div class="timeline">
+    <div class="t-item reveal">
+      <div class="t-head"><h4>Automation &amp; R&amp;D Intern</h4><span class="t-date">JUL 2025 — AUG 2025</span></div>
+      <div class="t-role">Intercom Enterprises · LLM &amp; Agentic AI</div>
+      <ul>
+        <li>Designed and built an <strong>intelligent codebase chatbot</strong> from scratch using LangChain and the Google Gemini API — engineered a structure-aware document splitter that respects function and class boundaries (instead of naïve token chunking) so retrieved context stays semantically coherent.</li>
+        <li>Indexed the splits in a <strong>FAISS vector store</strong> and tuned the retrieval layer (k, score thresholds, MMR) to balance recall against context-window pressure; the result was sub-second Q&amp;A, folder-level overviews, and an onboarding flow that materially reduced ramp-up time for new developers joining the team.</li>
+        <li>Designed multi-stage <strong>prompt-engineering workflows</strong> that transform raw analysis documents into structured technical design documents, reducing ambiguity in handoffs between analysts and engineers and cutting back-and-forth in design reviews.</li>
+        <li>Worked hands-on with the full <strong>LangChain ecosystem</strong> — LangGraph for stateful multi-step agents, LangSmith for tracing and prompt evaluation, and <strong>n8n</strong> for connecting agents to internal tools and event triggers.</li>
+        <li>Delivered internal <strong>technical sessions</strong> on LangChain fundamentals, RAG architecture, and presentation skills — packaging what I learned into talks the rest of the team could build on.</li>
+      </ul>
+    </div>
+
+    <div class="t-item reveal">
+      <div class="t-head"><h4>Business Intelligence Intern</h4><span class="t-date">AUG 2024 — SEP 2024</span></div>
+      <div class="t-role">Intercom Enterprises · Data &amp; Analytics</div>
+      <ul>
+        <li>Worked inside SAP <strong>Web Intelligence</strong> and the BO <strong>Universe</strong> semantic layer to model business data and build governed, reusable reports for downstream stakeholders.</li>
+        <li>Designed and delivered <strong>interactive Power BI dashboards</strong> for real client use cases — translating raw transactional data into KPI views, drill-throughs, and slicer-driven exploration that non-technical users could actually navigate.</li>
+        <li>Owned a real-world client data project end-to-end: scoped the question, cleaned and joined the source tables, validated the metrics, and presented the actionable insights directly to internal stakeholders.</li>
+        <li>Picked up the muscle of <strong>thinking in business metrics</strong> — turning ambiguous asks ("how is this segment performing?") into clean, defensible numbers backed by data lineage.</li>
+      </ul>
+    </div>
+
+    <div class="t-item reveal">
+      <div class="t-head"><h4>Software Development Intern</h4><span class="t-date">JUL 2024 — AUG 2024</span></div>
+      <div class="t-role">Raya Information Technology · Engineering</div>
+      <ul>
+        <li>Embedded with the Software Development team and contributed to live projects across the full development lifecycle — from reading specs and breaking down tickets to writing, testing, and debugging production-grade code.</li>
+        <li>Wrote, reviewed, and shipped code alongside senior engineers — got my first real taste of <strong>code review culture</strong>, branching strategies, pull-request etiquette, and the difference between code that works and code a team can maintain.</li>
+        <li>Strengthened practical fundamentals in <strong>Git workflows</strong>, debugging under time pressure, writing unit tests, and collaborating across QA and product roles in a professional team environment.</li>
+        <li>Walked away with a clear preference for systems where <strong>quality gates</strong> are automated rather than vibes-based — a conviction that later shaped my MLOps work.</li>
+      </ul>
+    </div>
+
+    <div class="t-item reveal">
+      <div class="t-head"><h4>B.Sc. — Computing &amp; Digital Technology</h4><span class="t-date">OCT 2023 — JUN 2026</span></div>
+      <div class="t-role">ESLSCA University · AI &amp; Data Science Major</div>
+      <p>Coursework spanning machine learning, deep learning, statistics, data engineering, and software design. Most of my real growth has happened in self-directed projects on top of the curriculum — graduation thesis is the <strong>Agentic Trading Bot</strong> below.</p>
+    </div>
+
+    <div class="t-item reveal">
+      <div class="t-head"><h4>High School Diploma</h4><span class="t-date">2023</span></div>
+      <div class="t-role">SAMA International School · New Cairo, Egypt</div>
+      <p>General secondary education — graduated 2023.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="work">
+  <div class="section-label reveal">04 — Selected projects</div>
+  <h2 class="reveal" style="font-family:'Bebas Neue';font-size:clamp(40px,6vw,86px);line-height:.95;margin-bottom:60px">Projects I've <span style="color:var(--accent)">built.</span></h2>
+
+  <div class="projects">
+    <div class="proj reveal">
+      <div class="proj-visual"><span class="num">01</span></div>
+      <div>
+        <h3>Agentic Trading Bot</h3>
+        <div class="stack">
+          <span>Python</span><span>XGBoost</span><span>Reinforcement Learning</span><span>FastAPI</span><span>Next.js</span><span>Supabase</span>
+        </div>
+        <p>Graduation project — an autonomous intraday equity trading system built on a <em>Predict-then-Modulate</em> architecture. An XGBoost model provides directional bias from OHLCV features, and a contextual RL agent modulates position sizing, timing, and hold duration based on net PnL feedback per trading block.</p>
+        <p style="margin-top:14px">A hard safety layer enforces idempotent order placement, partial-fill correction, slippage and fee modeling, and daily state resets. Deployed end-to-end with a Python backend on Render, a Next.js dashboard on Vercel, Supabase Postgres for state, and the Alpaca Markets API for live execution.</p>
+      </div>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-visual"><span class="num">02</span></div>
+      <div>
+        <h3>Adult Income MLOps Pipeline</h3>
+        <div class="stack">
+          <span>Python</span><span>scikit-learn</span><span>XGBoost</span><span>DVC</span><span>MLflow</span><span>FastAPI</span><span>Docker</span>
+        </div>
+        <p>End-to-end MLOps pipeline on the UCI Adult Income dataset for binary income classification. Implemented a 3-stage DVC pipeline (prepare, preprocess, train) with all parameters externalized to YAML. Tracked three model experiments in MLflow and registered the best to the Production stage.</p>
+        <p style="margin-top:14px">Served predictions through a FastAPI app, monitored data drift with Evidently and Prometheus, and enforced quality gates in GitHub Actions CI (flake8, pytest coverage, Pandera schema validation, F1 threshold). Containerized the full stack with Docker Compose.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="section-label reveal" style="justify-content:center">05 — Contact</div>
+  <h2 class="reveal"><a href="mailto:yahia.qandil183@outlook.com">Let's build<br>something.</a></h2>
+  <p class="reveal">Open to AI/ML roles where I can grow alongside an experienced team and contribute to meaningful projects. Drop me a line — I read every message.</p>
+  <div class="contact-info reveal">
+    <a href="mailto:yahia.qandil183@outlook.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      yahia.qandil183@outlook.com
+    </a>
+    <a href="tel:+201009148956">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      +20 100 914 8956
+    </a>
+    <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Heliopolis, Cairo</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 — Yahia Qandil</span>
+  <span>Crafted with care · Cairo</span>
+</footer>
+
+<script>
+/* Loader */
+(function(){
+  const num = document.getElementById('loaderNum');
+  const bar = document.getElementById('loaderBar');
+  const loader = document.getElementById('loader');
+  let p = 0;
+  const t = setInterval(()=>{
+    p += Math.random()*9 + 2;
+    if(p>=100){p=100;clearInterval(t);setTimeout(()=>loader.classList.add('gone'),350)}
+    num.textContent = String(Math.floor(p)).padStart(2,'0');
+    bar.style.width = p+'%';
+  },70);
+})();
+
+/* Cursor */
+(function(){
+  const c = document.getElementById('cursor');
+  const tr = document.getElementById('cursorTrail');
+  let mx=0,my=0,tx=0,ty=0;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    c.style.transform=`translate(${mx-7}px,${my-7}px)`;
+  });
+  function loop(){
+    tx += (mx-tx)*0.12;
+    ty += (my-ty)*0.12;
+    tr.style.transform = `translate(${tx-21}px,${ty-21}px)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+  document.querySelectorAll('a, button, .skill-card, .proj').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{c.style.transform += ' scale(2)';tr.style.borderColor='var(--accent)'});
+    el.addEventListener('mouseleave',()=>{c.style.transform = c.style.transform.replace(' scale(2)','');tr.style.borderColor='rgba(255,255,255,.35)'});
+  });
+})();
+
+/* Nav */
+(function(){
+  const nav = document.getElementById('nav');
+  const links = document.getElementById('navLinks');
+  const btn = document.getElementById('menuBtn');
+  window.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+  btn.addEventListener('click',()=>links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+})();
+
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id = a.getAttribute('href');
+    if(id.length>1){
+      const t = document.querySelector(id);
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+    }
+  })
+});
+
+/* Reveal on scroll */
+(function(){
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}});
+  },{threshold:.12});
+  els.forEach(el=>io.observe(el));
+})();
+
+/* Floating tags */
+(function(){
+  const tags = ['Python','LangChain','XGBoost','FastAPI','MLflow','DVC','PyTorch','Docker','RAG','RL','FAISS','Gemini'];
+  const wrap = document.getElementById('floatTags');
+  tags.forEach((t,i)=>{
+    const el = document.createElement('div');
+    el.className='float-tag';
+    el.textContent=t;
+    el.style.left = (5 + Math.random()*90)+'%';
+    el.style.top = (5 + Math.random()*90)+'%';
+    el.style.animation = `drift${i%3} ${10+Math.random()*10}s ease-in-out infinite alternate`;
+    wrap.appendChild(el);
+  });
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes drift0{from{transform:translate(0,0)}to{transform:translate(30px,-20px)}}
+    @keyframes drift1{from{transform:translate(0,0)}to{transform:translate(-25px,18px)}}
+    @keyframes drift2{from{transform:translate(0,0)}to{transform:translate(15px,25px)}}
+  `;
+  document.head.appendChild(style);
+})();
+</script>
+</body>
+</html>
